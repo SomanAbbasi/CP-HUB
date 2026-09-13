@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home | Competitive Programming Hub</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  
+  <header>
+    <nav class="navbar" aria-label="Main navigation">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">&lt;/&gt;</span>
+        <span>CP Hub</span>
+      </a>
+
+      <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="algorithms.html">Algorithms</a></li>
+        <li><a href="leaderboard.html">Leaderboard</a></li>
+        <li><a href="join.html">Join Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  
+  <main>
+    
+    <section class="hero">
+      <div class="hero-badge">
+        <span class="pulse-dot"></span>
+        <span>Live Contest Tracker &amp; Leaderboard</span>
+      </div>
+
+      <h1>Train Hard. <span class="accent">Solve Faster.</span></h1>
+      <p class="subtitle">
+        Track upcoming rounds across Codeforces, LeetCode, and AtCoder, study verified algorithm templates, and compete on the live club leaderboard.
+      </p>
+
+      <div class="hero-actions">
+        <a href="join.html" class="btn btn-primary">Join the Hub</a>
+        <a href="leaderboard.html" class="btn btn-outline">View Leaderboard</a>
+      </div>
+    </section>
+
+    
+    <section class="countdown-section" aria-label="Next upcoming contest countdown">
+      <div class="countdown-panel">
+        <div class="target-badge">
+          <span class="pulse-dot"></span>
+          <span>Target Contest:</span>
+          <span class="platform-badge badge-codeforces" id="target-contest-platform">Codeforces</span>
+        </div>
+
+        <h2 class="contest-title-active" id="target-contest-name">Next Upcoming Contest</h2>
+
+        <!-- Four-box precision countdown: Days, Hours, Minutes, Seconds -->
+        <div class="countdown">
+          <div class="count-box">
+            <span class="value" id="count-days">00</span>
+            <span class="label">Days</span>
+          </div>
+          <div class="count-box">
+            <span class="value" id="count-hours">00</span>
+            <span class="label">Hours</span>
+          </div>
+          <div class="count-box">
+            <span class="value" id="count-minutes">00</span>
+            <span class="label">Minutes</span>
+          </div>
+          <div class="count-box">
+            <span class="value" id="count-seconds">00</span>
+            <span class="label">Seconds</span>
+          </div>
+        </div>
+
+        <div id="timerDisplay" style="font-family: var(--font-mono); color: var(--accent-orange); margin-top: 0.6rem; font-size: 0.95rem; font-weight: 600;">
+          Connecting to live contest schedule...
+        </div>
+
+        <div class="timer-detail-bar">
+          <span>⚡ 5 Problems</span>
+          <span>⏱️ 2 Hours</span>
+          <span>🌐 Real-Time Sync</span>
+        </div>
+      </div>
+    </section>
+
+    
+    <section class="kontest-radar-section" aria-label="Realtime contest schedule">
+      <div class="section-header-row">
+        <div>
+          <h2>Upcoming <span class="accent">Contests</span></h2>
+          <p style="color: var(--text-muted); font-size: 0.92rem;">
+            Live schedule across competitive platforms with direct registration links.
+          </p>
+        </div>
+
+        <!-- Filter pills -->
+        <div class="filter-pills">
+          <button class="filter-btn active" data-platform="ALL">All Contests</button>
+          <button class="filter-btn" data-platform="MY_PINNED">
+            ⭐ My Pinned <span id="pinned-count-badge" class="filter-badge">0</span>
+          </button>
+          <button class="filter-btn" data-platform="Codeforces">Codeforces</button>
+          <button class="filter-btn" data-platform="LeetCode">LeetCode</button>
+          <button class="filter-btn" data-platform="AtCoder">AtCoder</button>
+          <button class="filter-btn" data-platform="CodeChef">CodeChef</button>
+        </div>
+      </div>
+
+      <div class="contest-grid" id="contestRadarGrid">
+        <!-- Javascript populates live contest cards here -->
+      </div>
+    </section>
+
+    
+    <section aria-label="Why join">
+      <h2>Why Grind <span class="accent">With Us?</span></h2>
+      <div class="grid">
+        <article class="card">
+          <div class="icon">⏱️</div>
+          <h3>Weekly Mock Contests</h3>
+          <p>ICPC-style team rounds every Saturday. Pressure-test your speed, solve under constraints, and upsolve together.</p>
+        </article>
+        <article class="card">
+          <div class="icon">🧠</div>
+          <h3>Algorithm Deep-Dives</h3>
+          <p>Focused sessions on DP transitions, graph modeling, and segment trees with battle-tested templates.</p>
+        </article>
+        <article class="card">
+          <div class="icon">🏆</div>
+          <h3>Live Standings</h3>
+          <p>A club-wide rating ladder mirroring official Codeforces tiers to track progress and celebrate milestones.</p>
+        </article>
+      </div>
+    </section>
+
+  </main>
+
+  
+  <footer>
+    <p>Competitive Programming Hub — built with semantic HTML, CSS &amp; vanilla JS.</p>
+    <p style="color: var(--text-muted); font-size: 0.8rem;">Practice. Compete. Upsolve.</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
