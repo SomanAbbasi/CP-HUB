@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Join Us | Competitive Programming Hub</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  
+  <header>
+    <nav class="navbar" aria-label="Main navigation">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">&lt;/&gt;</span>
+        <span>CP Hub</span>
+      </a>
+
+      <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="algorithms.html">Algorithms</a></li>
+        <li><a href="leaderboard.html">Leaderboard</a></li>
+        <li><a href="join.html" class="active">Join Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  
+  <main>
+    <section class="page-intro" style="text-align: center;">
+      <h1>Join the <span class="accent">Hub</span></h1>
+      <p class="lead" style="margin: 0.3rem auto 0;">
+        Register to join our weekly mock contest roster, Discord community, and club standings.
+      </p>
+    </section>
+
+    
+    <section aria-label="Registration form">
+      <form class="form-card" id="join-form" novalidate>
+        <div class="form-success" id="form-success" style="display: none;"></div>
+
+        <div class="form-group">
+          <label for="name">Full Name <span class="required">*</span></label>
+          <input type="text" id="name" name="name" placeholder="Ada Lovelace" autocomplete="name">
+          <span class="error-message" id="name-error"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address <span class="required">*</span></label>
+          <input type="email" id="email" name="email" placeholder="ada@university.edu" autocomplete="email">
+          <span class="error-message" id="email-error"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="platform">Primary Contest Platform <span class="required">*</span></label>
+          <select id="platform" name="platform">
+            <option value="">— Choose a platform —</option>
+            <option value="Codeforces">Codeforces</option>
+            <option value="LeetCode">LeetCode</option>
+            <option value="AtCoder">AtCoder</option>
+            <option value="GitHub">GitHub</option>
+          </select>
+          <span class="error-message" id="platform-error"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="handle">Platform Handle / Username <span class="required">*</span></label>
+          <div style="display: flex; gap: 0.5rem;">
+            <input type="text" id="handle" name="handle" placeholder="e.g. tourist, neal_wu, or your username" style="flex: 1;">
+            <button type="button" id="verify-handle-btn" class="btn btn-secondary btn-sm" style="white-space: nowrap;">
+              🔍 Verify Account
+            </button>
+          </div>
+          <div class="input-hint" id="handle-hint">Enter your actual registered handle. Real rating and solve stats will be fetched automatically via public APIs (no dummy data).</div>
+          <span class="error-message" id="handle-error"></span>
+          <div id="handle-verification-box" style="display: none; margin-top: 0.6rem;"></div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="join-submit-btn" style="width: 100%; margin-top: 0.5rem;">Register for Club Roster</button>
+      </form>
+    </section>
+
+  </main>
+
+  
+  <footer>
+    <p>Competitive Programming Hub — built with semantic HTML, CSS &amp; vanilla JS.</p>
+    <p style="color: var(--text-muted); font-size: 0.8rem;">Practice. Compete. Upsolve.</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
