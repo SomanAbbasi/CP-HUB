@@ -1,0 +1,473 @@
+{
+  "repository": "TheAlgorithms/JavaScript",
+  "categories": [
+    {
+      "name": "Backtracking",
+      "slug": "backtracking",
+      "iconType": "backtracking",
+      "description": "Systematic search through candidate solutions with pruning.",
+      "folder": "Backtracking",
+      "files": [
+        {
+          "name": "GeneratePermutations.js",
+          "path": "Backtracking/GeneratePermutations.js",
+          "complexity": "O(N · N!)",
+          "description": "Generate all distinct permutations of an array.",
+          "download_url": "https://raw.githubusercontent.com/TheAlgorithms/JavaScript/master/Backtracking/GeneratePermutations.js",
+          "html_url": "https://github.com/TheAlgorithms/JavaScript/blob/master/Backtracking/GeneratePermutations.js",
+          "code": "/*\n * Problem Statement: Generate all distinct permutations of an array (all permutations should be in sorted order);\n *\n * What is permutations?\n * - Permutation means possible arrangements in a set (here it is an array);\n *\n * Reference to know more about permutations:\n * - https://www.britannica.com/science/permutation\n *\n */\n\nconst swap = (arr, i, j) => {\n  const newArray = [...arr]\n\n  ;[newArray[i], newArray[j]] = [newArray[j], newArray[i]] // Swapping elements ES6 way\n\n  return newArray\n}\n\nconst permutations = (arr) => {\n  const P = []\n  const permute = (arr, low, high) => {\n    if (low === high) {\n      P.push([...arr])\n      return P\n    }\n    for (let i = low; i <= high; i++) {\n      arr = swap(arr, low, i)\n      permute(arr, low + 1, high)\n    }\n    return P\n  }\n  return permute(arr, 0, arr.length - 1)\n}\n\nexport { permutations }\n",
+          "size": 851,
+          "title": "Generate All Permutations",
+          "spaceComplexity": "O(N)",
+          "statement": "Given an array of distinct integers, return all possible permutations of the elements. A permutation is an arrangement of all members of a set into some sequence or linear order.",
+          "example": {
+            "input": "nums = [1, 2, 3]",
+            "output": "[[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]",
+            "explanation": "All 6 (3! = 6) unique ordered arrangements of elements [1, 2, 3]."
+          },
+          "constraints": "1 <= nums.length <= 8, all elements in nums are unique.",
+          "practiceUrl": "https://leetcode.com/problems/permutations/",
+          "practiceLabel": "LeetCode 46: Permutations"
+        },
+        {
+          "name": "NQueens.js",
+          "path": "Backtracking/NQueens.js",
+          "complexity": "O(N!)",
+          "description": "Classic N-Queens puzzle on an NxN chessboard.",
+          "download_url": "https://raw.githubusercontent.com/TheAlgorithms/JavaScript/master/Backtracking/NQueens.js",
+          "html_url": "https://github.com/TheAlgorithms/JavaScript/blob/master/Backtracking/NQueens.js",
+          "code": "class NQueens {\n  constructor(size) {\n    if (size < 0) {\n      throw RangeError('Invalid board size')\n    }\n    this.board = new Array(size).fill('.').map(() => new Array(size).fill('.'))\n    this.size = size\n    this.solutionCount = 0\n  }\n\n  isValid([row, col]) {\n    // function to check if the placement of the queen in the given location is valid\n\n    // checking the left of the current row\n    for (let i = 0; i < col; i++) {\n      if (this.board[row][i] === 'Q') return false\n    }\n\n    // checking the upper left diagonal\n    for (let i = row, j = col; i >= 0 && j >= 0; i--, j--) {\n      if (this.board[i][j] === 'Q') return false\n    }\n\n    // checking the lower left diagonal\n    for (let i = row, j = col; j >= 0 && i < this.size; i++, j--) {\n      if (this.board[i][j] === 'Q') return false\n    }\n\n    return true\n  }\n\n  placeQueen(row, col) {\n    this.board[row][col] = 'Q'\n  }\n\n  removeQueen(row, col) {\n    this.board[row][col] = '.'\n  }\n\n  solve(col = 0) {\n    if (col >= this.size) {\n      this.solutionCount++\n      return true\n    }\n\n    for (let i = 0; i < this.size; i++) {\n      if (this.isValid([i, col])) {\n        this.placeQueen(i, col)\n        this.solve(col + 1)\n        this.removeQueen(i, col)\n      }\n    }\n\n    return false\n  }\n\n  printBoard(output = (value) => console.log(value)) {\n    if (!output._isMockFunction) {\n      output('\\n')\n    }\n    for (const row of this.board) {\n      output(row)\n    }\n  }\n}\n\nexport { NQueens }\n",
+          "size": 1464,
+          "title": "N-Queens Solver",
+          "spaceComplexity": "O(N²)",
+          "statement": "The n-queens puzzle is the problem of placing n non-attacking queens on an n×n chessboard such that no two queens attack each other (no two queens share the same row, column, or diagonal). Return all distinct valid board configurations.",
+          "example": {
+            "input": "n = 4",
+            "output": "[[ \".Q..\", \"...Q\", \"Q...\", \"..Q.\" ], [ \"..Q.\", \"Q...\", \"...Q\", \".Q..\" ]]",
+            "explanation": "There exist two distinct solutions for a 4x4 chessboard."
+          },
+          "constraints": "1 <= n <= 9",
+          "practiceUrl": "https://leetcode.com/problems/n-queens/",
+          "practiceLabel": "LeetCode 51: N-Queens"
+        },
+        {
+          "name": "Sudoku.js",
+          "path": "Backtracking/Sudoku.js",
+          "complexity": "O(9^(N·N))",
+          "description": "Constraint-satisfaction 9x9 Sudoku grid solver.",
+          "download_url": "https://raw.githubusercontent.com/TheAlgorithms/JavaScript/master/Backtracking/Sudoku.js",
+          "html_url": "https://github.com/TheAlgorithms/JavaScript/blob/master/Backtracking/Sudoku.js",
+          "code": "class Sudoku {\n  // Sudoku Class to hold the board and related functions\n  constructor(board) {\n    this.board = board\n  }\n\n  findEmptyCell() {\n    // Find a empty cell in the board (returns [-1, -1] if all cells are filled)\n    for (let i = 0; i < 9; i++) {\n      for (let j = 0; j < 9; j++) {\n        if (this.board[i][j] === 0) return [i, j]\n      }\n    }\n    return [-1, -1]\n  }\n\n  check([y, x], value) {\n    // checks if the value to be added in the board is an acceptable value for the cell\n\n    // checking through the row\n    for (let i = 0; i < 9; i++) {\n      if (this.board[i][x] === value) return false\n    }\n    // checking through the column\n    for (let i = 0; i < 9; i++) {\n      if (this.board[y][i] === value) return false\n    }\n\n    // checking through the 3x3 block of the cell\n    const secRow = Math.floor(y / 3)\n    const secCol = Math.floor(x / 3)\n    for (let i = secRow * 3; i < secRow * 3 + 3; i++) {\n      for (let j = secCol * 3; j < secCol * 3 + 3; j++) {\n        if (y !== i && x !== j && this.board[i][j] === value) return false\n      }\n    }\n\n    return true\n  }\n\n  solve() {\n    const [y, x] = this.findEmptyCell()\n\n    // checking if the board is complete\n    if (y === -1 && x === -1) return true\n\n    for (let val = 1; val < 10; val++) {\n      if (this.check([y, x], val)) {\n        this.board[y][x] = val\n        if (this.solve()) return true\n        // backtracking if the board cannot be solved using current configuration\n        this.board[y][x] = 0\n      }\n    }\n    // returning false the board cannot be solved using current configuration\n    return false\n  }\n\n  getSection(row, [start, end]) {\n    return this.board[row].slice(start, end)\n  }\n\n  printBoard(output = (...v) => console.log(...v)) {\n    // helper function to display board\n    for (let i = 0; i < 9; i++) {\n      if (i % 3 === 0 && i !== 0) {\n        output('- - - - - - - - - - - -')\n      }\n      output(\n        ...this.getSection(i, [0, 3]),\n        ' | ',\n        ...this.getSection(i, [3, 6]),\n        ' | ',\n        ...this.getSection(i, [6, 9])\n      )\n    }\n  }\n}\n\nexport { Sudoku }\n",
+          "size": 2102,
+          "title": "9x9 Sudoku Solver",
+          "spaceComplexity": "O(1) aux",
+          "statement": "Write a program to solve a 9×9 Sudoku puzzle by filling empty cells. Each row, each column, and each of the nine 3×3 subgrids must contain all the digits from 1 to 9 without repetition.",
+          "example": {
+            "input": "9x9 matrix with numbers 1-9 and empty cells indicated by \".\"",
+            "output": "Fully solved 9x9 grid where all rows, columns, and 3x3 boxes contain 1-9.",
+            "explanation": "Backtracking fills candidate values 1-9 in empty cells and backtracks upon invalid states."
+          },
+          "constraints": "Input board is guaranteed to have exactly one unique valid solution.",
+          "practiceUrl": "https://leetcode.com/problems/sudoku-solver/",
+          "practiceLabel": "LeetCode 37: Sudoku Solver"
+        },
+        {
+          "name": "AllCombinationsOfSizeK.js",
+          "path": "Backtracking/AllCombinationsOfSizeK.js",
+          "complexity": "O(C(n, k) · k)",
+          "description": "Generates all k-combinations from an array.",
+          "download_url": "https://raw.githubusercontent.com/TheAlgorithms/JavaScript/master/Backtracking/AllCombinationsOfSizeK.js",
+          "html_url": "https://github.com/TheAlgorithms/JavaScript/blob/master/Backtracking/AllCombinationsOfSizeK.js",
+          "code": "function generateCombinations(n, k) {\n  let currentCombination = []\n  let allCombinations = [] // will be used for storing all combinations\n  let currentValue = 1\n\n  function findCombinations() {\n    if (currentCombination.length === k) {\n      // Add the array of size k to the allCombinations array\n      allCombinations.push([...currentCombination])\n      return\n    }\n    if (currentValue > n) {\n      // Check for exceeding the range\n      return\n    }\n    currentCombination.push(currentValue++)\n    findCombinations()\n    currentCombination.pop()\n    findCombinations()\n    currentValue--\n  }\n\n  findCombinations()\n\n  return allCombinations\n}\n\nexport { generateCombinations }\n",
+          "size": 683,
+          "title": "Combinations of Size K",
+          "spaceComplexity": "O(k)",
+          "statement": "Given two integers n and k, return all possible combinations of k numbers chosen from the range [1, n]. Combinations can be returned in any order.",
+          "example": {
+            "input": "n = 4, k = 2",
+            "output": "[[1, 2], [1, 3], [1, 4], [2, 3], [2, 4], [3, 4]]",
+            "explanation": "There are C(4, 2) = 6 total subsets of size 2 chosen from {1, 2, 3, 4}."
+          },
+          "constraints": "1 <= n <= 20, 1 <= k <= n",
+          "practiceUrl": "https://leetcode.com/problems/combinations/",
+          "practiceLabel": "LeetCode 77: Combinations"
+        },
+        {
+          "name": "RatInAMaze.js",
+          "path": "Backtracking/RatInAMaze.js",
+          "complexity": "O(4^(N²))",
+          "description": "Pathfinding in grid with obstacles.",
+          "download_url": "https://raw.githubusercontent.com/TheAlgorithms/JavaScript/master/Backtracking/RatInAMaze.js",
+          "html_url": "https://github.com/TheAlgorithms/JavaScript/blob/master/Backtracking/RatInAMaze.js",
+          "code": "/*\n * Problem Statement:\n * - Given a NxN grid, find whether rat in cell [0, 0] can reach the target in cell [N-1, N-1]\n * - The grid is represented as an array of rows. Each row is represented as an array of 0 or 1 values.\n * - A cell with value 0 can not be moved through. Value 1 means the rat can move here.\n * - The rat can not move diagonally.\n *\n * Reference for this problem: https://www.geeksforgeeks.org/rat-in-a-maze-backtracking-2/\n *\n * Based on the original implementation contributed by Chiranjeev Thapliyal (https://github.com/chiranjeev-thapliyal).\n */\n\n/**\n * Checks if the given grid is valid.\n *\n * A grid needs to satisfy these conditions:\n * - must not be empty\n * - must be a square\n * - must not contain values other than {@code 0} and {@code 1}\n *\n * @param grid The grid to check.\n * @throws TypeError When the given grid is invalid.\n */\nfunction validateGrid(grid) {\n  if (!Array.isArray(grid) || grid.length === 0)\n    throw new TypeError('Grid must be a non-empty array')\n\n  const allRowsHaveCorrectLength = grid.every(\n    (row) => row.length === grid.length\n  )\n  if (!allRowsHaveCorrectLength) throw new TypeError('Grid must be a square')\n\n  const allCellsHaveValidValues = grid.every((row) => {\n    return row.every((cell) => cell === 0 || cell === 1)\n  })\n  if (!allCellsHaveValidValues)\n    throw new TypeError('Grid must only contain 0s and 1s')\n}\n\nfunction isSafe(grid, x, y) {\n  const n = grid.length\n  return x >= 0 && x < n && y >= 0 && y < n && grid[y][x] === 1\n}\n\n/**\n * Attempts to calculate the remaining path to the target.\n *\n * @param grid The full grid.\n * @param x The current X coordinate.\n * @param y The current Y coordinate.\n * @param solution The current solution matrix.\n * @param path The path we took to get from the source cell to the current location.\n * @returns {string|boolean} Either the path to the target cell or false.\n */\nfunction getPathPart(grid, x, y, solution, path) {\n  const n = grid.length\n\n  // are we there yet?\n  if (x === n - 1 && y === n - 1 && grid[y][x] === 1) {\n    solution[y][x] = 1\n    return path\n  }\n\n  // did we step on a 0 cell or outside the grid?\n  if (!isSafe(grid, x, y)) return false\n\n  // are we walking onto an already-marked solution coordinate?\n  if (solution[y][x] === 1) return false\n\n  // none of the above? let's dig deeper!\n\n  // mark the current coordinates on the solution matrix\n  solution[y][x] = 1\n\n  // attempt to move right\n  const right = getPathPart(grid, x + 1, y, solution, path + 'R')\n  if (right) return right\n\n  // right didn't work: attempt to move down\n  const down = getPathPart(grid, x, y + 1, solution, path + 'D')\n  if (down) return down\n\n  // down didn't work: attempt to move up\n  const up = getPathPart(grid, x, y - 1, solution, path + 'U')\n  if (up) return up\n\n  // up didn't work: attempt to move left\n  const left = getPathPart(grid, x - 1, y, solution, path + 'L')\n  if (left) return left\n\n  // no direction was successful: remove this cell from the solution matrix and backtrack\n  solution[y][x] = 0\n  return false\n}\n\nfunction getPath(grid) {\n  // grid dimensions\n  const n = grid.length\n\n  // prepare solution matrix\n  const solution = []\n  for (let i = 0; i < n; i++) {\n    const row = Array(n)\n    row.fill(0)\n    solution[i] = row\n  }\n\n  return getPathPart(grid, 0, 0, solution, '')\n}\n\n/**\n * Creates an instance of the \"rat in a maze\" based on a given grid (maze).\n */\nexport class RatInAMaze {\n  constructor(grid) {\n    // first, let's do some error checking on the input\n    validateGrid(grid)\n\n    // attempt to solve the maze now - all public methods only query the result state later\n    const solution = getPath(grid)\n\n    if (solution !== false) {\n      this.path = solution\n      this.solved = true\n    } else {\n      this.path = ''\n      this.solved = false\n    }\n  }\n}\n",
+          "size": 3815,
+          "title": "Rat in a Maze",
+          "spaceComplexity": "O(N²)",
+          "statement": "Consider a rat placed at (0, 0) in a square binary maze of size N×N. The rat must reach destination (N-1, N-1). It can only move in open cells (1) and cannot enter blocked obstacles (0). Return all valid directional paths (D, U, L, R).",
+          "example": {
+            "input": "N = 4, maze = [[1, 0, 0, 0], [1, 1, 0, 1], [0, 1, 0, 0], [1, 1, 1, 1]]",
+            "output": "[\"DDRDRR\", \"DRDDRR\"]",
+            "explanation": "Two unique paths navigate from (0,0) down and right to cell (3,3)."
+          },
+          "constraints": "2 <= N <= 10, maze[0][0] = 1, maze[N-1][N-1] = 1",
+          "practiceUrl": "https://practice.geeksforgeeks.org/problems/rat-in-a-maze-problem/1",
+          "practiceLabel": "GFG: Rat in a Maze"
+        },
+        {
+          "name": "KnightTour.js",
+          "path": "Backtracking/KnightTour.js",
+          "complexity": "O(8^(N²))",
+          "description": "Traverse every square of chessboard once.",
+          "download_url": "https://raw.githubusercontent.com/TheAlgorithms/JavaScript/master/Backtracking/KnightTour.js",
+          "html_url": "https://github.com/TheAlgorithms/JavaScript/blob/master/Backtracking/KnightTour.js",
+          "code": "// Wikipedia: https://en.wikipedia.org/wiki/Knight%27s_tour\n\nclass OpenKnightTour {\n  constructor(size) {\n    // Constructor to initialize the chessboard and size\n    this.board = new Array(size).fill(0).map(() => new Array(size).fill(0))\n    this.size = size\n  }\n\n  getMoves([i, j]) {\n    // Helper function to get the valid moves of the knight from the current position\n    const moves = [\n      [i + 2, j - 1],\n      [i + 2, j + 1],\n      [i - 2, j - 1],\n      [i - 2, j + 1],\n      [i + 1, j - 2],\n      [i + 1, j + 2],\n      [i - 1, j - 2],\n      [i - 1, j + 2]\n    ]\n\n    // Filter out moves that are within the board boundaries\n    return moves.filter(\n      ([y, x]) => y >= 0 && y < this.size && x >= 0 && x < this.size\n    )\n  }\n\n  isComplete() {\n    // Helper function to check if the board is complete\n    return !this.board.map((row) => row.includes(0)).includes(true)\n  }\n\n  solve() {\n    // Function to find the solution for the given board\n    for (let i = 0; i < this.size; i++) {\n      for (let j = 0; j < this.size; j++) {\n        if (this.solveHelper([i, j], 0)) return true\n      }\n    }\n    return false\n  }\n\n  solveHelper([i, j], curr) {\n    // Helper function for the main computation\n    if (this.isComplete()) return true\n\n    // Iterate through possible moves and attempt to fill the board\n    for (const [y, x] of this.getMoves([i, j])) {\n      if (this.board[y][x] === 0) {\n        this.board[y][x] = curr + 1\n        if (this.solveHelper([y, x], curr + 1)) return true\n        // Backtracking: If the solution is not found, reset the cell to 0\n        this.board[y][x] = 0\n      }\n    }\n    return false\n  }\n\n  printBoard(output = (value) => console.log(value)) {\n    // Utility function to display the board\n    for (const row of this.board) {\n      let string = ''\n      for (const elem of row) {\n        string += elem + '\\t'\n      }\n      output(string)\n    }\n  }\n}\n\nexport { OpenKnightTour }\n",
+          "size": 1927,
+          "title": "Knight's Tour on Chessboard",
+          "spaceComplexity": "O(N²)",
+          "statement": "A knight's tour is a sequence of moves of a knight on an N×N chessboard such that the knight visits every square on the board exactly once. Return the complete sequence of moves numbered from 1 to N².",
+          "example": {
+            "input": "N = 8, start = (0, 0)",
+            "output": "8×8 matrix containing step numbers 1 to 64",
+            "explanation": "Warnsdorff's heuristic moves to the neighbor square with the fewest onward moves to avoid dead ends."
+          },
+          "constraints": "N = 8 (standard chessboard), board starts empty.",
+          "practiceUrl": "https://cses.fi/problemset/task/1643",
+          "practiceLabel": "CSES: Knight's Tour"
+        },
+        {
+          "name": "MColoringProblem.js",
+          "path": "Backtracking/MColoringProblem.js",
+          "complexity": "O(m^V)",
+          "description": "Graph vertex coloring with at most M colors.",
+          "download_url": "https://raw.githubusercontent.com/TheAlgorithms/JavaScript/master/Backtracking/MColoringProblem.js",
+          "html_url": "https://github.com/TheAlgorithms/JavaScript/blob/master/Backtracking/MColoringProblem.js",
+          "code": "/**\n * Colors a graph using up to m colors such that no two adjacent vertices share the same color.\n * @param {number[][]} graph - Adjacency matrix of the graph, using 0 for no edge.\n * @param {number} m - The number of colors to use.\n * @returns {?Array.<number>} A valid M-coloring of the graph using colors 1 to m, or null if none exists.\n * @see https://en.wikipedia.org/wiki/Graph_coloring\n */\nfunction mColoring(graph, m) {\n  const colors = new Array(graph.length).fill(0)\n\n  // Check if it's safe to color a vertex with a given color.\n  function isSafe(vertex, color) {\n    for (let i = 0; i < graph.length; i++) {\n      if (graph[vertex][i] && colors[i] === color) {\n        return false\n      }\n    }\n    return true\n  }\n\n  // Use backtracking to try and color the graph.\n  function solveColoring(vertex = 0) {\n    if (vertex === graph.length) {\n      return true\n    }\n\n    for (let color = 1; color <= m; color++) {\n      if (isSafe(vertex, color)) {\n        colors[vertex] = color\n\n        if (solveColoring(vertex + 1)) {\n          return true\n        }\n\n        // If no solution, backtrack.\n        colors[vertex] = 0\n      }\n    }\n    return false\n  }\n\n  // If coloring is possible, return the colors.\n  if (solveColoring()) {\n    return colors\n  }\n  return null\n}\n\nexport { mColoring }\n",
+          "size": 1303,
+          "title": "Graph m-Coloring Problem",
+          "spaceComplexity": "O(V)",
+          "statement": "Given an undirected graph with V vertices and an integer m, determine whether the graph can be colored with at most m colors such that no two adjacent vertices share the same color. If feasible, return a valid color assignment.",
+          "example": {
+            "input": "V = 4, E = [(0,1), (1,2), (2,3), (3,0), (0,2)], m = 3",
+            "output": "Coloring: [1, 2, 1, 2] (True)",
+            "explanation": "Every connected edge connects two vertices of distinct colors."
+          },
+          "constraints": "1 <= V <= 20, 1 <= m <= V",
+          "practiceUrl": "https://practice.geeksforgeeks.org/problems/m-coloring-problem-1587115620/1",
+          "practiceLabel": "GFG: m-Coloring Problem"
+        },
+        {
+          "name": "SumOfSubset.js",
+          "path": "Backtracking/SumOfSubset.js",
+          "complexity": "O(2^N)",
+          "description": "Find subsets that sum to a target value.",
+          "download_url": "https://raw.githubusercontent.com/TheAlgorithms/JavaScript/master/Backtracking/SumOfSubset.js",
+          "html_url": "https://github.com/TheAlgorithms/JavaScript/blob/master/Backtracking/SumOfSubset.js",
+          "code": "/*\n *\n *  Sum of Subset problem\n *\n *  Given an ordered set W of non-negative integers and a value K,\n *  determine all possible subsets from the given set W whose sum\n *  of its elements equals to the given value K.\n *\n *  More info: https://www.geeksforgeeks.org/subset-sum-backtracking-4/\n */\n\n/*\n * @param {number[]} set Original set of numbers\n * @param {number[]} subset Subset being evaluated\n * @param {number} setIndex Index from set of last element in subset\n * @param {number} Sum of elements from subset\n * @param {targetSum} The target sum on which the subset sum is compared to\n * @returns {number[][]} Subsets whose elements add up to targetSum\n */\nconst sumOfSubset = (set, subset, setindex, sum, targetSum) => {\n  // Base case where the subset sum is equal to target sum\n  // Evaluation of following subsets on this path will always add up to\n  // greater than targetSum, so no need to continue\n  if (sum === targetSum) return [subset]\n\n  // This and following subsets on this path will always add up to\n  // greater than targetSum, so no need to continue\n  if (sum > targetSum) return []\n\n  // Initialize results array. Will contain only valid subsets\n  let results = []\n\n  // Slice gets from the set all the elements at the right of the last element\n  // to be evaluated (last element of subset)\n  // forEach iterated on the resulting array\n  set.slice(setindex).forEach((num, index) => {\n    // The next subset to be evaluated, current subset plus next element\n    const nextSubset = [...subset, num]\n\n    // Next index from the set. Current set index plus iteration index\n    // index starts at 0, so a + 1 is required\n    const nextSetIndex = setindex + index + 1\n\n    // Sum of elements from the next subset to be evaluated\n    const nextSum = sum + num\n\n    // Call recursively the sumOfSubset for the nextSubset\n    const subsetResult = sumOfSubset(\n      set,\n      nextSubset,\n      nextSetIndex,\n      nextSum,\n      targetSum\n    )\n\n    // Concat the recursive result with current result array\n    results = [...results, ...subsetResult]\n  })\n\n  // Return results\n  return results\n}\n\nexport { sumOfSubset }\n",
+          "size": 2136,
+          "title": "Combination Sum (Subset Sum)",
+          "spaceComplexity": "O(Target)",
+          "statement": "Given an array of positive integers candidates and a target integer target, return all unique combinations where the chosen numbers sum to target. Each number in candidates may be used multiple times.",
+          "example": {
+            "input": "candidates = [2, 3, 6, 7], target = 7",
+            "output": "[[2, 2, 3], [7]]",
+            "explanation": "2+2+3 = 7 and 7 = 7 are the only combinations that sum to 7."
+          },
+          "constraints": "1 <= candidates.length <= 30, 1 <= candidates[i] <= 200, 1 <= target <= 500",
+          "practiceUrl": "https://leetcode.com/problems/combination-sum/",
+          "practiceLabel": "LeetCode 39: Combination Sum"
+        },
+        {
+          "name": "generateParentheses.js",
+          "path": "Backtracking/generateParentheses.js",
+          "complexity": "O(4^n / √n)",
+          "description": "Generate all valid balanced parentheses.",
+          "download_url": "https://raw.githubusercontent.com/TheAlgorithms/JavaScript/master/Backtracking/generateParentheses.js",
+          "html_url": "https://github.com/TheAlgorithms/JavaScript/blob/master/Backtracking/generateParentheses.js",
+          "code": "/**\n * Problem Statement: Given a number n pairs of parentheses, try to Generate all combinations of valid parentheses;\n * @param {number} n - number of given parentheses\n * @return {string[]} res - array that contains all valid parentheses\n * @see https://leetcode.com/problems/generate-parentheses/\n */\n\nconst generateParentheses = (n) => {\n  const res = []\n\n  const solve = (chres, openParenthese, closedParenthese) => {\n    if (openParenthese === n && closedParenthese === n) {\n      res.push(chres)\n      return\n    }\n\n    if (openParenthese <= n) {\n      solve(chres + '(', openParenthese + 1, closedParenthese)\n    }\n\n    if (closedParenthese < openParenthese) {\n      solve(chres + ')', openParenthese, closedParenthese + 1)\n    }\n  }\n\n  solve('', 0, 0)\n\n  return res\n}\n\nexport { generateParentheses }\n",
+          "size": 810,
+          "title": "Generate Balanced Parentheses",
+          "spaceComplexity": "O(n)",
+          "statement": "Given n pairs of parentheses, write a function to generate all combinations of well-formed, balanced parentheses strings.",
+          "example": {
+            "input": "n = 3",
+            "output": "[\"((()))\", \"(()())\", \"(())()\", \"()(())\", \"()()()\"]",
+            "explanation": "Exactly Catalan(3) = 5 valid combinations of 3 balanced pairs exist."
+          },
+          "constraints": "1 <= n <= 8",
+          "practiceUrl": "https://leetcode.com/problems/generate-parentheses/",
+          "practiceLabel": "LeetCode 22: Generate Parentheses"
+        }
+      ]
+    },
+    {
+      "name": "Bit-Manipulation",
+      "slug": "bit-manipulation",
+      "iconType": "bit-manipulation",
+      "description": "Ultra-fast low-level binary operations, bitmasks and bitwise arithmetic.",
+      "folder": "Bit-Manipulation",
+      "files": [
+        {
+          "name": "BinaryCountSetBits.js",
+          "path": "Bit-Manipulation/BinaryCountSetBits.js",
+          "complexity": "O(k) set bits",
+          "description": "Count number of set 1s (popcount / Hamming weight).",
+          "download_url": "https://raw.githubusercontent.com/TheAlgorithms/JavaScript/master/Bit-Manipulation/BinaryCountSetBits.js",
+          "html_url": "https://github.com/TheAlgorithms/JavaScript/blob/master/Bit-Manipulation/BinaryCountSetBits.js",
+          "code": "/*\n    author: vivek9patel\n    license: GPL-3.0 or later\n\n    This script will find number of 1's\n    in binary representation of given number\n\n*/\n\nfunction BinaryCountSetBits(a) {\n  'use strict'\n\n  // check whether input is an integer, some non-integer number like, 21.1 have non-terminating binary expansions and hence their binary expansion will contain infinite ones, thus the handling of non-integers (including strings,objects etc. as it is meaningless) has been omitted\n\n  if (!Number.isInteger(a)) throw new TypeError('Argument not an Integer')\n\n  let count = 0\n  while (a) {\n    a &= a - 1\n    count++\n  }\n\n  return count\n}\n\nexport { BinaryCountSetBits }\n",
+          "size": 664,
+          "title": "Number of 1 Bits (Hamming Weight)",
+          "spaceComplexity": "O(1)",
+          "statement": "Write a function that takes the binary representation of an integer and returns the number of set bits (1s) it has. Implement Brian Kernighan's algorithm n &= (n - 1) which clears the lowest set bit in each step.",
+          "example": {
+            "input": "n = 11 (binary: 0000...1011)",
+            "output": "3",
+            "explanation": "11 has three 1s in binary (at positions 0, 1, and 3)."
+          },
+          "constraints": "1 <= n <= 2^31 - 1",
+          "practiceUrl": "https://leetcode.com/problems/number-of-1-bits/",
+          "practiceLabel": "LeetCode 191: Number of 1 Bits"
+        },
+        {
+          "name": "GenerateSubSets.js",
+          "path": "Bit-Manipulation/GenerateSubSets.js",
+          "complexity": "O(N · 2^N)",
+          "description": "Generate power set using binary bitmasks.",
+          "download_url": "https://raw.githubusercontent.com/TheAlgorithms/JavaScript/master/Bit-Manipulation/GenerateSubSets.js",
+          "html_url": "https://github.com/TheAlgorithms/JavaScript/blob/master/Bit-Manipulation/GenerateSubSets.js",
+          "code": "/**\n * @function generateSubSets\n * @param {Array} inputArray\n * @returns {Array}\n * @example [1,2] -> [[],[1],[2],[1,2]]\n */\n\n// The time complexity of this algorithm is BigO(2^n) where n is the length of array\nfunction generateSubSets(inputArray) {\n  if (!Array.isArray(inputArray)) {\n    throw new Error('Provided input is not an array')\n  }\n  if (inputArray.length > 32) {\n    throw new RangeError('Error size should be less than equal to 32')\n  }\n  let arrayLength = inputArray.length\n  let subSets = []\n  // loop till (2^n) - 1\n  for (let i = 0; i < 1 << arrayLength; i++) {\n    let subSet = []\n    for (let j = 0; j < arrayLength; j++) {\n      // 1 << j it shifts binary digit 1 by j positions and then we perform\n      // and by AND operation we are checking whetheer jth bit\n      // in i is set to 1 if result is non zero just add into set\n      if (i & (1 << j)) {\n        subSet.push(inputArray[j])\n      }\n    }\n    subSets.push(subSet)\n  }\n  return subSets\n}\n\nexport { generateSubSets }\n",
+          "size": 1001,
+          "title": "Power Set via Bitmask",
+          "spaceComplexity": "O(1) aux",
+          "statement": "Given an integer array nums of unique elements, return all possible subsets (the power set). Use a bitmask iterator from 0 to (2^N - 1), where the i-th bit indicates whether nums[i] is included.",
+          "example": {
+            "input": "nums = [1, 2, 3]",
+            "output": "[[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]]",
+            "explanation": "Bitmask values 0 (000b) through 7 (111b) represent all 8 possible subsets."
+          },
+          "constraints": "1 <= nums.length <= 10, -10 <= nums[i] <= 10",
+          "practiceUrl": "https://leetcode.com/problems/subsets/",
+          "practiceLabel": "LeetCode 78: Subsets"
+        },
+        {
+          "name": "IsPowerOfTwo.js",
+          "path": "Bit-Manipulation/IsPowerOfTwo.js",
+          "complexity": "O(1)",
+          "description": "Check if number is power of two using n & (n - 1).",
+          "download_url": "https://raw.githubusercontent.com/TheAlgorithms/JavaScript/master/Bit-Manipulation/IsPowerOfTwo.js",
+          "html_url": "https://github.com/TheAlgorithms/JavaScript/blob/master/Bit-Manipulation/IsPowerOfTwo.js",
+          "code": "/*\n    author: @Aayushi-Mittal\n\n    This script will check whether the given\n    number is a power of two or not.\n\n    A number will be a power of two if only one bit is set and rest are unset.\n    This is true for all the cases except 01 because (2^0 = 1) which is not a power of 2.\n    For eg: 10 (2^1 = 2), 100 (2^2 = 4), 10000 (2^4 = 16)\n\n    Reference Link: https://www.hackerearth.com/practice/notes/round-a-number-to-the-next-power-of-2/\n\n    If we will subtract 1 from a number that is a power of 2 we will get it's 1's complement.\n    And we know that 1's complement is just opp. of that number.\n    So, (n & (n-1)) will be 0.\n\n    For eg:    (1000 & (1000-1))\n                1 0 0 0     // Original Number (8)\n                0 1 1 1     // After Subtracting 1 (8-1 = 7)\n                _______\n                0 0 0 0     // will become 0\n\n*/\n\nexport const IsPowerOfTwo = (n) => {\n  return n > 0 && (n & (n - 1)) === 0\n}\n",
+          "size": 933,
+          "title": "Power of Two",
+          "spaceComplexity": "O(1)",
+          "statement": "Given an integer n, return true if it is a power of two. Otherwise, return false. In binary, a power of two has exactly one 1 bit; therefore, n & (n - 1) will equal 0.",
+          "example": {
+            "input": "n = 16",
+            "output": "true",
+            "explanation": "16 in binary is 10000. 16 - 1 = 15 (01111). 16 & 15 == 0."
+          },
+          "constraints": "-2^31 <= n <= 2^31 - 1",
+          "practiceUrl": "https://leetcode.com/problems/power-of-two/",
+          "practiceLabel": "LeetCode 231: Power of Two"
+        },
+        {
+          "name": "IsPowerofFour.js",
+          "path": "Bit-Manipulation/IsPowerofFour.js",
+          "complexity": "O(1)",
+          "description": "Fast check for powers of 4 via bitmasks.",
+          "download_url": "https://raw.githubusercontent.com/TheAlgorithms/JavaScript/master/Bit-Manipulation/IsPowerofFour.js",
+          "html_url": "https://github.com/TheAlgorithms/JavaScript/blob/master/Bit-Manipulation/IsPowerofFour.js",
+          "code": "/**\n * @author : dev-madhurendra\n * Checks whether the given number is a power of four or not.\n *\n * A number is considered a power of four if and only if there is a single '1' bit in its binary representation,\n * and that '1' bit is at the first position, followed by an even number of '0' bits.\n *\n * @param {number} n - The input number to check.\n * @returns {boolean} True if the number is a power of four, false otherwise.\n *\n * @example\n * const result = isPowerOfFour(16); // Returns true (16 is 4^2)\n * const result2 = isPowerOfFour(5);  // Returns false (5 is not a power of four)\n */\nconst isPowerOfFour = (n) => n > 0 && (n & (n - 1)) === 0 && n % 3 === 1\n\nexport { isPowerOfFour }\n",
+          "size": 693,
+          "title": "Power of Four",
+          "spaceComplexity": "O(1)",
+          "statement": "Given an integer n, return true if it is a power of four without loops or recursion. A power of four is a power of two whose sole set bit lies in an odd position (filtered via mask 0x55555555).",
+          "example": {
+            "input": "n = 16",
+            "output": "true",
+            "explanation": "16 is 2^4 = 4^2. Its set bit is at index 4 (odd position in 0-indexed odd masks)."
+          },
+          "constraints": "-2^31 <= n <= 2^31 - 1",
+          "practiceUrl": "https://leetcode.com/problems/power-of-four/",
+          "practiceLabel": "LeetCode 342: Power of Four"
+        },
+        {
+          "name": "UniqueElementInAnArray.js",
+          "path": "Bit-Manipulation/UniqueElementInAnArray.js",
+          "complexity": "O(N)",
+          "description": "Find single non-repeating number using XOR.",
+          "download_url": "https://raw.githubusercontent.com/TheAlgorithms/JavaScript/master/Bit-Manipulation/UniqueElementInAnArray.js",
+          "html_url": "https://github.com/TheAlgorithms/JavaScript/blob/master/Bit-Manipulation/UniqueElementInAnArray.js",
+          "code": "/**\n * Finds the unique element in an array where all other elements are repeated twice.\n *\n * @param {number[]} arr - The input array of integers.\n * @returns {number} The unique element.\n *\n * @example\n * const arr = [1, 2, 1, 2, 3];\n * const uniqueElement = findUniqueElement(arr); // Returns 3\n */\nconst findUniqueElement = (arr) => arr.reduce((acc, val) => acc ^ val, 0)\n\nexport { findUniqueElement }\n",
+          "size": 406,
+          "title": "Single Number (Unique Element)",
+          "spaceComplexity": "O(1)",
+          "statement": "Given a non-empty array of integers nums, every element appears twice except for one unique element. Find that single element in O(N) time and O(1) auxiliary space using XOR.",
+          "example": {
+            "input": "nums = [4, 1, 2, 1, 2]",
+            "output": "4",
+            "explanation": "XOR properties: a ^ a = 0 and a ^ 0 = a. Thus 4 ^ (1 ^ 1) ^ (2 ^ 2) = 4 ^ 0 ^ 0 = 4."
+          },
+          "constraints": "1 <= nums.length <= 3 * 10^4, -3 * 10^4 <= nums[i] <= 3 * 10^4",
+          "practiceUrl": "https://leetcode.com/problems/single-number/",
+          "practiceLabel": "LeetCode 136: Single Number"
+        },
+        {
+          "name": "SetBit.js",
+          "path": "Bit-Manipulation/SetBit.js",
+          "complexity": "O(1)",
+          "description": "Set, clear and toggle the k-th bit in constant time.",
+          "download_url": "https://raw.githubusercontent.com/TheAlgorithms/JavaScript/master/Bit-Manipulation/SetBit.js",
+          "html_url": "https://github.com/TheAlgorithms/JavaScript/blob/master/Bit-Manipulation/SetBit.js",
+          "code": "/*\n * Setting Bit: https://www.geeksforgeeks.org/set-k-th-bit-given-number/\n *\n * To set any bit we use bitwise OR (|) operator.\n *\n * Bitwise OR (|) compares the bits of the 32\n * bit binary representations of the number and\n * returns a number after comparing each bit.\n *\n * 0 | 0 -> 0\n * 0 | 1 -> 1\n * 1 | 0 -> 1\n * 1 | 1 -> 1\n *\n * In-order to set kth bit of a number (where k is the position where bit is to be changed)\n * we need to shift 1 k times to its left and then perform bitwise OR operation with the\n * number and result of left shift performed just before.\n *\n * References:\n * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_OR\n */\n\n/**\n * @param {number} number\n * @param {number} bitPosition - zero based.\n * @return {number}\n */\n\nexport const setBit = (number, bitPosition) => {\n  return number | (1 << bitPosition)\n}\n",
+          "size": 874,
+          "title": "Bitwise Bit Operations (Get, Set, Clear, Toggle)",
+          "spaceComplexity": "O(1)",
+          "statement": "Perform fundamental constant-time operations on the k-th bit of integer n: get bit (n >> k) & 1, set bit n | (1 << k), clear bit n & ~(1 << k), and toggle bit n ^ (1 << k).",
+          "example": {
+            "input": "n = 5 (101 in binary), k = 1",
+            "output": "Set bit 1: 7 (111); Clear bit 0: 4 (100); Toggle bit 1: 7 (111)",
+            "explanation": "Essential bit twiddling building blocks for CP bitmasks and Fenwick trees."
+          },
+          "constraints": "0 <= n < 2^31, 0 <= k <= 31",
+          "practiceUrl": "https://cses.fi/problemset/task/1617",
+          "practiceLabel": "CSES: Bit Strings"
+        },
+        {
+          "name": "NextPowerOfTwo.js",
+          "path": "Bit-Manipulation/NextPowerOfTwo.js",
+          "complexity": "O(1)",
+          "description": "Compute smallest power of 2 greater than n.",
+          "download_url": "https://raw.githubusercontent.com/TheAlgorithms/JavaScript/master/Bit-Manipulation/NextPowerOfTwo.js",
+          "html_url": "https://github.com/TheAlgorithms/JavaScript/blob/master/Bit-Manipulation/NextPowerOfTwo.js",
+          "code": "/**\n *\n *  This script will find next power of two\n *    of given number.\n *  More about it:\n *   https://www.techiedelight.com/round-next-highest-power-2/\n *\n */\n\nexport const nextPowerOfTwo = (n) => {\n  if (n > 0 && (n & (n - 1)) === 0) return n\n  let result = 1\n  while (n > 0) {\n    result = result << 1\n    n = n >> 1\n  }\n  return result\n}\n",
+          "size": 345,
+          "title": "Next Power of Two",
+          "spaceComplexity": "O(1)",
+          "statement": "Given an integer n, find the smallest power of two that is greater than or equal to n. Uses bit spreading (n |= n >> 1, n |= n >> 2, ..., n |= n >> 16) then adds 1.",
+          "example": {
+            "input": "n = 17",
+            "output": "32",
+            "explanation": "The powers of two are 1, 2, 4, 8, 16, 32... The smallest >= 17 is 32."
+          },
+          "constraints": "1 <= n <= 2^30",
+          "practiceUrl": "https://codeforces.com/problemset?tags=bitmasks",
+          "practiceLabel": "Codeforces: Bitmask Problems"
+        },
+        {
+          "name": "LogTwo.js",
+          "path": "Bit-Manipulation/LogTwo.js",
+          "complexity": "O(1)",
+          "description": "Calculate floor(log2(n)) with bit shifting.",
+          "download_url": "https://raw.githubusercontent.com/TheAlgorithms/JavaScript/master/Bit-Manipulation/LogTwo.js",
+          "html_url": "https://github.com/TheAlgorithms/JavaScript/blob/master/Bit-Manipulation/LogTwo.js",
+          "code": "/**\n * https://handwiki.org/wiki/Binary_logarithm\n * Approximate log2 using only bitwise operators\n * @param {number} n\n * @returns {number} Log2 approximation equal to floor(log2(n))\n */\nexport const logTwo = (n) => {\n  let result = 0\n  while (n >> 1) {\n    n >>= 1\n    result++\n  }\n  return result\n}\n",
+          "size": 302,
+          "title": "Fast Binary Logarithm floor(log2(n))",
+          "spaceComplexity": "O(1)",
+          "statement": "Compute floor(log2(n)) in O(1) operations using bitwise shifts. Essential in competitive programming for calculating Sparse Table RMQ layer heights.",
+          "example": {
+            "input": "n = 250",
+            "output": "7",
+            "explanation": "2^7 = 128 <= 250 < 256 = 2^8, so floor(log2(250)) = 7."
+          },
+          "constraints": "1 <= n <= 2^31 - 1",
+          "practiceUrl": "https://cses.fi/problemset/task/1647",
+          "practiceLabel": "CSES: Range Minimum Queries"
+        },
+        {
+          "name": "GrayCodes.js",
+          "path": "Bit-Manipulation/GrayCodes.js",
+          "complexity": "O(2^N)",
+          "description": "Binary sequence where adjacent values differ by 1 bit.",
+          "download_url": "https://raw.githubusercontent.com/TheAlgorithms/JavaScript/master/Bit-Manipulation/GrayCodes.js",
+          "html_url": "https://github.com/TheAlgorithms/JavaScript/blob/master/Bit-Manipulation/GrayCodes.js",
+          "code": "/**\n * Generates a Gray code sequence for the given number of bits.\n * @param {number} n - The number of bits in the Gray code sequence.\n * @returns {number[]} - An array of Gray codes in binary format.\n * @description\n * Gray codes are binary sequences in which two successive values differ in only one bit.\n * This function generates a Gray code sequence of length 2^n for the given number of bits.\n *\n * The algorithm follows these steps:\n *\n * 1. Initialize an array `grayCodes` to store the Gray codes. Start with [0, 1] for n = 1.\n * 2. Iterate from 1 to n:\n *    a. Calculate `highestBit` as 2^i, where `i` is the current iteration index.\n *    b. Iterate in reverse order through the existing Gray codes:\n *       - For each Gray code `code`, add `highestBit | code` to `grayCodes`.\n *       - This operation flips a single bit in each existing code, creating new codes.\n * 3. Return the `grayCodes` array containing the Gray codes in decimal representation.\n *\n *resources: [GFG](https://www.geeksforgeeks.org/generate-n-bit-gray-codes/)\n * @example\n * const n = 3;\n * const grayCodes = generateGrayCodes(n);\n * // grayCodes will be [0, 1, 3, 2, 6, 7, 5, 4] for n=3.\n */\nfunction generateGrayCodes(n) {\n  if (n <= 0) {\n    return [0]\n  }\n\n  const grayCodes = [0, 1]\n\n  for (let i = 1; i < n; i++) {\n    const highestBit = 1 << i\n    for (let j = grayCodes.length - 1; j >= 0; j--) {\n      grayCodes.push(highestBit | grayCodes[j])\n    }\n  }\n\n  return grayCodes\n}\n\nexport { generateGrayCodes }\n",
+          "size": 1502,
+          "title": "Gray Code Sequence",
+          "spaceComplexity": "O(1) aux",
+          "statement": "An n-bit Gray code sequence is a sequence of 2^n integers where the binary representation of every adjacent integer differs by exactly one bit. Given n, return the complete sequence.",
+          "example": {
+            "input": "n = 2",
+            "output": "[0, 1, 3, 2]",
+            "explanation": "Binary forms: 00 (0), 01 (1), 11 (3), 10 (2). Each differs from its neighbor by exactly 1 bit."
+          },
+          "constraints": "1 <= n <= 16",
+          "practiceUrl": "https://leetcode.com/problems/gray-code/",
+          "practiceLabel": "LeetCode 89: Gray Code"
+        }
+      ]
+    },
+    {
+      "name": "Cache",
+      "slug": "cache",
+      "iconType": "cache",
+      "description": "Fast memory buffers and optimal eviction policies.",
+      "folder": "Cache",
+      "files": [
+        {
+          "name": "LRUCache.js",
+          "path": "Cache/LRUCache.js",
+          "complexity": "O(1) get & put",
+          "description": "Least Recently Used cache with HashMap + Doubly Linked List.",
+          "download_url": "https://raw.githubusercontent.com/TheAlgorithms/JavaScript/master/Cache/LRUCache.js",
+          "html_url": "https://github.com/TheAlgorithms/JavaScript/blob/master/Cache/LRUCache.js",
+          "code": "class LRUCache {\n  // LRU Cache to store a given capacity of data\n  #capacity\n\n  /**\n   * @param {number} capacity - the capacity of LRUCache\n   * @returns {LRUCache} - sealed\n   */\n  constructor(capacity) {\n    if (!Number.isInteger(capacity) || capacity < 0) {\n      throw new TypeError('Invalid capacity')\n    }\n\n    this.#capacity = ~~capacity\n    this.misses = 0\n    this.hits = 0\n    this.cache = new Map()\n\n    return Object.seal(this)\n  }\n\n  get info() {\n    return Object.freeze({\n      misses: this.misses,\n      hits: this.hits,\n      capacity: this.capacity,\n      size: this.size\n    })\n  }\n\n  get size() {\n    return this.cache.size\n  }\n\n  get capacity() {\n    return this.#capacity\n  }\n\n  set capacity(newCapacity) {\n    if (newCapacity < 0) {\n      throw new RangeError('Capacity should be greater than 0')\n    }\n\n    if (newCapacity < this.capacity) {\n      let diff = this.capacity - newCapacity\n\n      while (diff--) {\n        this.#removeLeastRecentlyUsed()\n      }\n    }\n\n    this.#capacity = newCapacity\n  }\n\n  /**\n   * delete oldest key existing in map by the help of iterator\n   */\n  #removeLeastRecentlyUsed() {\n    this.cache.delete(this.cache.keys().next().value)\n  }\n\n  /**\n   * @param {string} key\n   * @returns {*}\n   */\n  has(key) {\n    key = String(key)\n\n    return this.cache.has(key)\n  }\n\n  /**\n   * @param {string} key\n   * @param {*} value\n   */\n  set(key, value) {\n    key = String(key)\n    // Sets the value for the input key and if the key exists it updates the existing key\n    if (this.size === this.capacity) {\n      this.#removeLeastRecentlyUsed()\n    }\n\n    this.cache.set(key, value)\n  }\n\n  /**\n   * @param {string} key\n   * @returns {*}\n   */\n  get(key) {\n    key = String(key)\n    // Returns the value for the input key. Returns null if key is not present in cache\n    if (this.cache.has(key)) {\n      const value = this.cache.get(key)\n\n      // refresh the cache to update the order of key\n      this.cache.delete(key)\n      this.cache.set(key, value)\n\n      this.hits++\n      return value\n    }\n\n    this.misses++\n    return null\n  }\n\n  /**\n   * @param {JSON} json\n   * @returns {LRUCache}\n   */\n  parse(json) {\n    const { misses, hits, cache } = JSON.parse(json)\n\n    this.misses += misses ?? 0\n    this.hits += hits ?? 0\n\n    for (const key in cache) {\n      this.set(key, cache[key])\n    }\n\n    return this\n  }\n\n  /**\n   * @param {number} indent\n   * @returns {JSON} - string\n   */\n  toString(indent) {\n    const replacer = (_, value) => {\n      if (value instanceof Set) {\n        return [...value]\n      }\n\n      if (value instanceof Map) {\n        return Object.fromEntries(value)\n      }\n\n      return value\n    }\n\n    return JSON.stringify(this, replacer, indent)\n  }\n}\n\nexport default LRUCache\n",
+          "size": 2753,
+          "title": "LRU Cache (Least Recently Used)",
+          "spaceComplexity": "O(Capacity)",
+          "statement": "Design a data structure that follows the constraints of a Least Recently Used (LRU) cache. Implement get(key) and put(key, value) in O(1) average time using a HashMap and Doubly Linked List.",
+          "example": {
+            "input": "LRUCache(2); put(1,1); put(2,2); get(1) -> 1; put(3,3) evicts key 2; get(2) -> -1",
+            "output": "[1, -1]",
+            "explanation": "Key 2 was evicted because key 1 was recently accessed via get(1)."
+          },
+          "constraints": "1 <= capacity <= 3000, 0 <= key <= 10^4, 0 <= value <= 10^5",
+          "practiceUrl": "https://leetcode.com/problems/lru-cache/",
+          "practiceLabel": "LeetCode 146: LRU Cache"
+        },
+        {
+          "name": "LFUCache.js",
+          "path": "Cache/LFUCache.js",
+          "complexity": "O(1) get & put",
+          "description": "Least Frequently Used cache eviction policy.",
+          "download_url": "https://raw.githubusercontent.com/TheAlgorithms/JavaScript/master/Cache/LFUCache.js",
+          "html_url": "https://github.com/TheAlgorithms/JavaScript/blob/master/Cache/LFUCache.js",
+          "code": "class CacheNode {\n  constructor(key, value, frequency) {\n    this.key = key\n    this.value = value\n    this.frequency = frequency\n\n    return Object.seal(this)\n  }\n}\n\n// This frequency map class will act like javascript Map DS with more two custom method refresh & insert\nclass FrequencyMap extends Map {\n  static get [Symbol.species]() {\n    return Map\n  } // for using Symbol.species we can access Map constructor  @see -> https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/@@species\n  get [Symbol.toStringTag]() {\n    return ''\n  }\n\n  /**\n   * @method refresh\n   * @description - It's revive a CacheNode, increment of this nodes frequency and refresh the frequencyMap via new incremented nodes frequency\n   * @param {CacheNode} node\n   */\n  refresh(node) {\n    const { frequency } = node\n    const freqSet = this.get(frequency)\n    freqSet.delete(node)\n\n    node.frequency++\n\n    this.insert(node)\n  }\n\n  /**\n   * @method insert\n   * @description - Add new CacheNode into HashSet by the frequency\n   * @param {CacheNode} node\n   */\n  insert(node) {\n    const { frequency } = node\n\n    if (!this.has(frequency)) {\n      this.set(frequency, new Set())\n    }\n\n    this.get(frequency).add(node)\n  }\n}\n\nclass LFUCache {\n  #capacity\n  #frequencyMap\n\n  /**\n   * @param {number} capacity - The range of LFUCache\n   * @returns {LFUCache} - sealed\n   */\n  constructor(capacity) {\n    this.#capacity = capacity\n    this.#frequencyMap = new FrequencyMap()\n    this.misses = 0\n    this.hits = 0\n    this.cache = new Map()\n\n    return Object.seal(this)\n  }\n\n  /**\n   * Get the capacity of the LFUCache\n   * @returns {number}\n   */\n  get capacity() {\n    return this.#capacity\n  }\n\n  /**\n   * Get the current size of LFUCache\n   * @returns {number}\n   */\n  get size() {\n    return this.cache.size\n  }\n\n  /**\n   * Set the capacity of the LFUCache if you decrease the capacity its removed CacheNodes following the LFU - least frequency used\n   */\n  set capacity(newCapacity) {\n    if (this.#capacity > newCapacity) {\n      let diff = this.#capacity - newCapacity // get the decrement number of capacity\n\n      while (diff--) {\n        this.#removeCacheNode()\n      }\n\n      this.cache.size === 0 && this.#frequencyMap.clear()\n    }\n\n    this.#capacity = newCapacity\n  }\n\n  get info() {\n    return Object.freeze({\n      misses: this.misses,\n      hits: this.hits,\n      capacity: this.capacity,\n      currentSize: this.size,\n      leastFrequency: this.leastFrequency\n    })\n  }\n\n  get leastFrequency() {\n    const freqCacheIterator = this.#frequencyMap.keys()\n    let leastFrequency = freqCacheIterator.next().value || null\n\n    // select the non-empty frequency Set\n    while (this.#frequencyMap.get(leastFrequency)?.size === 0) {\n      leastFrequency = freqCacheIterator.next().value\n    }\n\n    return leastFrequency\n  }\n\n  #removeCacheNode() {\n    const leastFreqSet = this.#frequencyMap.get(this.leastFrequency)\n    // Select the least recently used node from the least Frequency set\n    const LFUNode = leastFreqSet.values().next().value\n\n    leastFreqSet.delete(LFUNode)\n    this.cache.delete(LFUNode.key)\n  }\n\n  /**\n   * if key exist then return true otherwise false\n   * @param {any} key\n   * @returns {boolean}\n   */\n  has(key) {\n    key = String(key) // converted to string\n\n    return this.cache.has(key)\n  }\n\n  /**\n   * @method get\n   * @description - This method return the value of key & refresh the frequencyMap by the oldNode\n   * @param {string} key\n   * @returns {any}\n   */\n  get(key) {\n    key = String(key) // converted to string\n\n    if (this.cache.has(key)) {\n      const oldNode = this.cache.get(key)\n      this.#frequencyMap.refresh(oldNode)\n\n      this.hits++\n\n      return oldNode.value\n    }\n\n    this.misses++\n    return null\n  }\n\n  /**\n   * @method set\n   * @description - This method stored the value by key & add frequency if it doesn't exist\n   * @param {string} key\n   * @param {any} value\n   * @param {number} frequency\n   * @returns {LFUCache}\n   */\n  set(key, value, frequency = 1) {\n    key = String(key) // converted to string\n\n    if (this.#capacity === 0) {\n      throw new RangeError('LFUCache ERROR: The Capacity is 0')\n    }\n\n    if (this.cache.has(key)) {\n      const node = this.cache.get(key)\n      node.value = value\n\n      this.#frequencyMap.refresh(node)\n\n      return this\n    }\n\n    // if the cache size is full, then it's delete the Least Frequency Used node\n    if (this.#capacity === this.cache.size) {\n      this.#removeCacheNode()\n    }\n\n    const newNode = new CacheNode(key, value, frequency)\n\n    this.cache.set(key, newNode)\n    this.#frequencyMap.insert(newNode)\n\n    return this\n  }\n\n  /**\n   * @method parse\n   * @description - This method receive a valid LFUCache JSON & run JSON.prase() method and merge with existing LFUCache\n   * @param {JSON} json\n   * @returns {LFUCache} - merged\n   */\n  parse(json) {\n    const { misses, hits, cache } = JSON.parse(json)\n\n    this.misses += misses ?? 0\n    this.hits += hits ?? 0\n\n    for (const key in cache) {\n      const { value, frequency } = cache[key]\n      this.set(key, value, frequency)\n    }\n\n    return this\n  }\n\n  /**\n   * @method clear\n   * @description - This method cleared the whole LFUCache\n   * @returns {LFUCache}\n   */\n  clear() {\n    this.cache.clear()\n    this.#frequencyMap.clear()\n\n    return this\n  }\n\n  /**\n   * @method toString\n   * @description - This method generate a JSON format of LFUCache & return it.\n   * @param {number} indent\n   * @returns {string} - JSON\n   */\n  toString(indent) {\n    const replacer = (_, value) => {\n      if (value instanceof Set) {\n        return [...value]\n      }\n\n      if (value instanceof Map) {\n        return Object.fromEntries(value)\n      }\n\n      return value\n    }\n\n    return JSON.stringify(this, replacer, indent)\n  }\n}\n\nexport default LFUCache\n",
+          "size": 5841,
+          "title": "LFU Cache (Least Frequently Used)",
+          "spaceComplexity": "O(Capacity)",
+          "statement": "Design and implement a data structure for a Least Frequently Used (LFU) cache. When capacity is reached, evict the least frequently used key. If frequencies tie, evict the least recently used key among them.",
+          "example": {
+            "input": "LFUCache(2); put(1,1); put(2,2); get(1); put(3,3) evicts key 2; get(2) -> -1; get(3) -> 3",
+            "output": "[1, -1, 3]",
+            "explanation": "Key 1 has frequency 2, key 2 has frequency 1. Key 2 is evicted."
+          },
+          "constraints": "1 <= capacity <= 10^4, 0 <= key <= 10^5, all operations in O(1) average time.",
+          "practiceUrl": "https://leetcode.com/problems/lfu-cache/",
+          "practiceLabel": "LeetCode 460: LFU Cache"
+        },
+        {
+          "name": "Memoize.js",
+          "path": "Cache/Memoize.js",
+          "complexity": "O(1) cache lookup",
+          "description": "Higher-order function caching pure function results.",
+          "download_url": "https://raw.githubusercontent.com/TheAlgorithms/JavaScript/master/Cache/Memoize.js",
+          "html_url": "https://github.com/TheAlgorithms/JavaScript/blob/master/Cache/Memoize.js",
+          "code": "/**\n * @function memoize\n * @description ->\n * From [Wikipedia](https://en.wikipedia.org/wiki/Memoization),\n * memoization is an optimization technique\n * used primarily to speed up computer programs,\n * by storing the results of expensive function calls\n * and returning the cached result when the same inputs occur again\n * This function is a first class objects,\n * which lets us use it as [Higher-Order Function](https://eloquentjavascript.net/05_higher_order.html)\n * and return another function\n * @param {Function} func Original function\n * @param {Map} cache - it's receive any cache DS which have get, set & has method\n * @returns {Function} Memoized function\n */\nconst memoize = (func, cache = new Map()) => {\n  const jsonReplacer = (_, value) => {\n    if (value instanceof Set) {\n      // if the value is Set it's converted to Array cause JSON.stringify can't convert Set\n      return [...value]\n    }\n\n    if (value instanceof Map) {\n      // if the value is Map it's converted to Object cause JSON.stringify can't convert Map\n      return Object.fromEntries(value)\n    }\n\n    return value\n  }\n\n  return (...args) => {\n    /**\n     * Arguments converted to JSON string for use as a key of Map - it's easy to detect collections like -> Object and Array\n     * If the args input is -> [new Set([1, 2, 3, 4]), {name: 'myName', age: 23}]\n     * Then the argsKey generate to -> '[[1,2,3,4],{\"name\":\"myName\",\"age\":23}]' which is JSON mean string\n     * Now it's ready to be a perfect key for Map\n     */\n    const argsKey = JSON.stringify(args, jsonReplacer)\n\n    /**\n     * Checks if the argument is already present in the cache,\n     * then return the associated value / result\n     */\n    if (cache.has(argsKey)) {\n      return cache.get(argsKey)\n    }\n\n    /**\n     * If the argument is not yet present in the cache,\n     * execute original function and save its value / result in cache,\n     * finally return it\n     */\n    const result = func(...args) // spread all args\n    cache.set(argsKey, result)\n\n    return result\n  }\n}\n\nexport { memoize }\n",
+          "size": 2059,
+          "title": "Function Memoization Cache",
+          "spaceComplexity": "O(M) unique calls",
+          "statement": "Given a pure function fn, return a memoized version of that function. A memoized function caches results so that identical arguments return instantly without redundant re-execution.",
+          "example": {
+            "input": "const memoFib = memoize(fib); memoFib(40); memoFib(40)",
+            "output": "Second call returns in 0ms directly from cache",
+            "explanation": "Fundamental optimization technique for recursive dynamic programming subproblems."
+          },
+          "constraints": "Arguments must be deterministic and serializable.",
+          "practiceUrl": "https://leetcode.com/problems/memoize/",
+          "practiceLabel": "LeetCode 2623: Memoize"
+        }
+      ]
+    }
+  ]
+}

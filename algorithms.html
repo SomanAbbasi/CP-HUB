@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Algorithms | Competitive Programming Hub</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  
+  <header>
+    <nav class="navbar" aria-label="Main navigation">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">&lt;/&gt;</span>
+        <span>CP Hub</span>
+      </a>
+
+      <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="algorithms.html" class="active">Algorithms</a></li>
+        <li><a href="leaderboard.html">Leaderboard</a></li>
+        <li><a href="join.html">Join Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  
+  <main>
+    <section class="page-intro" style="text-align: center; margin-bottom: 1.25rem; padding-top: 0.5rem;">
+      <h1 style="font-size: clamp(1.8rem, 3.5vw, 2.4rem); margin-bottom: 0.25rem;">Algorithm <span class="accent">Library</span></h1>
+      <p class="lead" style="margin: 0 auto; font-size: 0.95rem; max-width: 680px; color: var(--text-muted);">
+        Explore core <strong>Backtracking</strong>, <strong>Bit-Manipulation</strong>, and <strong>Cache</strong> algorithms with formal problem statements, constraints, and complete implementations.
+      </p>
+    </section>
+
+    
+    <div class="algo-mode-container" style="margin-bottom: 1.25rem;">
+      <div class="algo-mode-tabs" role="tablist">
+        <button class="algo-mode-tab active" data-mode="explorer" role="tab" aria-selected="true">
+          📁 TheAlgorithms Repository Explorer
+        </button>
+        <button class="algo-mode-tab" data-mode="playbook" role="tab" aria-selected="false">
+          ⚡ CP Contest Playbook (C++ &amp; Python)
+        </button>
+      </div>
+    </div>
+
+    
+    <section id="algo-explorer-view" aria-label="TheAlgorithms Repository Explorer">
+      <div class="explorer-toolbar">
+        <div class="explorer-search-wrapper">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="algo-search-input" class="search-input" placeholder="Search Backtracking, Bit-Manipulation &amp; Cache algorithms...">
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+          <span style="font-size: 0.82rem; color: var(--text-muted);">Source:</span>
+          <a href="https://github.com/TheAlgorithms/JavaScript" target="_blank" rel="noopener noreferrer" class="chip-btn" style="background: #f1f5f9; color: var(--text-primary); text-decoration: none;">
+            TheAlgorithms / JavaScript
+          </a>
+          <button id="refresh-repo-btn" class="btn btn-secondary btn-sm" style="font-size: 0.78rem; padding: 0.35rem 0.7rem;" title="Fetch live updates from GitHub API">
+            🔄 Live Sync
+          </button>
+        </div>
+      </div>
+
+      <div class="explorer-layout">
+        <!-- Folder Tree Side Panel -->
+        <aside class="repo-tree-card" aria-label="Algorithm folders">
+          <div class="repo-tree-header">
+            <span><span class="logo-icon" style="font-size: 0.85rem; margin-right: 4px;">&lt;/&gt;</span> Algorithm Topics</span>
+            <span id="algo-total-count" style="color: var(--text-muted); font-size: 0.78rem;">21 algorithms</span>
+          </div>
+          <div class="repo-tree-body" id="repo-tree-container">
+            <div style="padding: 1.5rem; text-align: center; color: var(--text-muted);">
+              <span class="pulse-dot" style="margin-right: 6px;"></span> Loading algorithms...
+            </div>
+          </div>
+          <div class="repo-tree-footer" style="padding: 0.75rem 1rem; background: #f8fafc; border-top: 1px solid var(--border); font-size: 0.76rem; color: var(--text-muted); display: flex; align-items: center; justify-content: space-between;">
+            <span>📁 3 Topics · Closed by Default</span>
+            <span style="color: var(--primary-accent); font-weight: 600;">✓ Ready</span>
+          </div>
+        </aside>
+
+        <!-- Main Explorer Content Area: Problem Statement Card + Code Solution Card -->
+        <div class="explorer-main-content">
+          <!-- 1. Problem Statement Card -->
+          <article class="problem-card" aria-label="Problem Statement &amp; Overview">
+            <div class="problem-card-header">
+              <div class="code-viewer-breadcrumbs" id="viewer-breadcrumbs">
+                <span>TheAlgorithms</span> / <span>JavaScript</span> / <span id="viewer-category">Backtracking</span> / <strong id="viewer-filename">GeneratePermutations.js</strong>
+              </div>
+              <div class="problem-title-row">
+                <h2 class="problem-title" id="viewer-title">Generate All Permutations</h2>
+                <a id="practice-problem-btn" href="https://leetcode.com/problems/permutations/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="font-size: 0.8rem; gap: 0.35rem; display: inline-flex; align-items: center;">
+                  ⚡ <span id="practice-label">Practice on LeetCode</span> ↗
+                </a>
+              </div>
+              <div class="problem-meta-row" id="viewer-meta">
+                <span class="complexity-tag" id="viewer-complexity">Time: O(N · N!)</span>
+                <span class="complexity-tag" id="viewer-space-complexity" style="background:#f0fdf4; color:#16a34a; border: 1px solid #bbf7d0;">Space: O(N)</span>
+                <span class="tree-file-tag" id="viewer-topic-tag">Topic: Backtracking</span>
+                <span class="platform-badge badge-leetcode" id="viewer-lang">JavaScript</span>
+              </div>
+            </div>
+
+            <div class="problem-card-body">
+              <div class="problem-section">
+                <h3 class="problem-section-title">Problem Statement</h3>
+                <p id="problem-statement-text" class="problem-text">
+                  Given an array of distinct integers, return all possible permutations of the elements. A permutation is an arrangement of all members of a set into some sequence or linear order.
+                </p>
+              </div>
+
+              <div class="problem-section" id="problem-example-section">
+                <h3 class="problem-section-title">Example</h3>
+                <div class="problem-example-box">
+                  <div class="example-row"><strong>Input:</strong> <code id="example-input">nums = [1, 2, 3]</code></div>
+                  <div class="example-row"><strong>Output:</strong> <code id="example-output">[[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]</code></div>
+                  <div class="example-row" id="example-explanation-row"><strong>Explanation:</strong> <span id="example-explanation">All 6 (3! = 6) unique ordered arrangements of elements [1, 2, 3].</span></div>
+                </div>
+              </div>
+
+              <div class="problem-section" id="problem-constraints-section">
+                <h3 class="problem-section-title">Constraints &amp; Bounds</h3>
+                <p id="problem-constraints-text" class="problem-constraints">1 &le; nums.length &le; 8, all elements in nums are unique.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- 2. Implementation Code Card -->
+          <section class="code-viewer-card" aria-label="Code viewer">
+            <div class="code-viewer-header">
+              <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
+                <span class="logo-icon" style="font-size: 0.85rem;">&lt;/&gt;</span>
+                <strong id="viewer-code-filename" style="font-size: 0.95rem; color: var(--text-primary);">GeneratePermutations.js</strong>
+                <span class="tree-file-tag" id="viewer-size">0.8 KB</span>
+              </div>
+              <div class="code-viewer-actions">
+                <button id="copy-algo-code-btn" class="btn btn-primary btn-sm">
+                  📋 Copy Code
+                </button>
+                <a id="github-file-link" href="https://github.com/TheAlgorithms/JavaScript/blob/master/Backtracking/GeneratePermutations.js" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+                  ↗ GitHub Source
+                </a>
+              </div>
+            </div>
+            <div class="code-viewer-body">
+              <pre><code id="algo-code-content">// Select an algorithm from the folder tree on the left to view its implementation.</code></pre>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    
+    <section id="algo-playbook-view" style="display: none;" aria-label="Curated contest playbook">
+      <div class="accordion">
+
+        <!-- Topic 1: Dynamic Programming -->
+        <div class="accordion-item">
+          <button class="accordion-btn">Dynamic Programming (0/1 Knapsack &amp; LIS)</button>
+          <div class="accordion-panel">
+            <div class="accordion-content">
+              <p>Turns exponential search into polynomial solutions by memoizing answers to overlapping subproblems.</p>
+              <ul>
+                <li><strong>Classic Patterns:</strong> 0/1 Knapsack, Longest Increasing Subsequence (LIS), Coin Change. <span class="complexity-tag">O(N·W) / O(N log N)</span></li>
+                <li><strong>State Design:</strong> Define <code>dp[w]</code> = maximum value achievable with capacity $w$.</li>
+              </ul>
+
+              <div class="code-container">
+                <div class="code-header">
+                  <div class="code-lang-tabs">
+                    <button class="code-tab-btn active" data-lang="cpp">C++</button>
+                    <button class="code-tab-btn" data-lang="py">Python</button>
+                  </div>
+                  <button class="copy-code-btn">Copy Code</button>
+                </div>
+                <pre class="code-block" data-lang="cpp" style="display: block;"><code>// 0/1 Knapsack in O(N*W) time and O(W) space
+int knapsack(int W, const vector&lt;int&gt;&amp; wt, const vector&lt;int&gt;&amp; val) {
+    vector&lt;int&gt; dp(W + 1, 0);
+    for (size_t i = 0; i &lt; wt.size(); i++) {
+        for (int w = W; w &gt;= wt[i]; w--) {
+            dp[w] = max(dp[w], dp[w - wt[i]] + val[i]);
+        }
+    }
+    return dp[W];
+}</code></pre>
+                <pre class="code-block" data-lang="py" style="display: none;"><code># 0/1 Knapsack in O(N*W) time and O(W) space
+def knapsack(W, wt, val):
+    dp = [0] * (W + 1)
+    for w_i, v_i in zip(wt, val):
+        for w in range(W, w_i - 1, -1):
+            dp[w] = max(dp[w], dp[w - w_i] + v_i)
+    return dp[W]</code></pre>
+              </div>
+
+              <div class="practice-links">
+                <span style="color: var(--text-muted);">Practice:</span>
+                <a href="https://cses.fi/problemset/task/1158" target="_blank" rel="noopener noreferrer">CSES Book Shop</a> ·
+                <a href="https://atcoder.jp/contests/dp/tasks/dp_d" target="_blank" rel="noopener noreferrer">AtCoder DP Task D</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Topic 2: Graph Theory -->
+        <div class="accordion-item">
+          <button class="accordion-btn">Graph Theory (Dijkstra &amp; DSU)</button>
+          <div class="accordion-panel">
+            <div class="accordion-content">
+              <p>Modeling problem constraints as nodes and edges is standard in contest problems.</p>
+              <ul>
+                <li><strong>Shortest Paths:</strong> Dijkstra's with priority queue <span class="complexity-tag">O((V + E) log V)</span>.</li>
+                <li><strong>Disjoint Set Union (DSU):</strong> Near-constant time connectivity with union by size &amp; path compression <span class="complexity-tag">O(α(V))</span>.</li>
+              </ul>
+
+              <div class="code-container">
+                <div class="code-header">
+                  <div class="code-lang-tabs">
+                    <button class="code-tab-btn active" data-lang="cpp">C++</button>
+                    <button class="code-tab-btn" data-lang="py">Python</button>
+                  </div>
+                  <button class="copy-code-btn">Copy Code</button>
+                </div>
+                <pre class="code-block" data-lang="cpp" style="display: block;"><code>struct DSU {
+    vector&lt;int&gt; parent, sz;
+    DSU(int n) : parent(n), sz(n, 1) {
+        iota(parent.begin(), parent.end(), 0);
+    }
+    int find(int i) {
+        return (parent[i] == i) ? i : (parent[i] = find(parent[i]));
+    }
+    bool unite(int i, int j) {
+        int root_i = find(i), root_j = find(j);
+        if (root_i == root_j) return false;
+        if (sz[root_i] &lt; sz[root_j]) swap(root_i, root_j);
+        parent[root_j] = root_i;
+        sz[root_i] += sz[root_j];
+        return true;
+    }
+};</code></pre>
+                <pre class="code-block" data-lang="py" style="display: none;"><code>class DSU:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.size = [1] * n
+
+    def find(self, i):
+        if self.parent[i] == i:
+            return i
+        self.parent[i] = self.find(self.parent[i])
+        return self.parent[i]
+
+    def unite(self, i, j):
+        root_i, root_j = self.find(i), self.find(j)
+        if root_i == root_j:
+            return False
+        if self.size[root_i] < self.size[root_j]:
+            root_i, root_j = root_j, root_i
+        self.parent[root_j] = root_i
+        self.size[root_i] += self.size[root_j]
+        return True</code></pre>
+              </div>
+
+              <div class="practice-links">
+                <span style="color: var(--text-muted);">Practice:</span>
+                <a href="https://cses.fi/problemset/task/1671" target="_blank" rel="noopener noreferrer">CSES Shortest Routes I</a> ·
+                <a href="https://cses.fi/problemset/task/1676" target="_blank" rel="noopener noreferrer">CSES Road Construction</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Topic 3: Data Structures -->
+        <div class="accordion-item">
+          <button class="accordion-btn">Data Structures (Binary Indexed Tree / Fenwick)</button>
+          <div class="accordion-panel">
+            <div class="accordion-content">
+              <p>Dynamic range sums and point updates with optimal memory locality and no pointer overhead.</p>
+              <ul>
+                <li><strong>Complexity:</strong> $O(\log N)$ for updates and prefix queries, $O(N)$ space <span class="complexity-tag">O(log N)</span>.</li>
+                <li><strong>Bit Manipulation:</strong> <code>i += (i &amp; -i)</code> jumps to the next responsible node.</li>
+              </ul>
+
+              <div class="code-container">
+                <div class="code-header">
+                  <div class="code-lang-tabs">
+                    <button class="code-tab-btn active" data-lang="cpp">C++</button>
+                    <button class="code-tab-btn" data-lang="py">Python</button>
+                  </div>
+                  <button class="copy-code-btn">Copy Code</button>
+                </div>
+                <pre class="code-block" data-lang="cpp" style="display: block;"><code>struct Fenwick {
+    int n;
+    vector&lt;long long&gt; tree;
+    Fenwick(int n) : n(n), tree(n + 1, 0) {}
+    void add(int i, long long delta) {
+        for (; i &lt;= n; i += i &amp; -i) tree[i] += delta;
+    }
+    long long query(int i) {
+        long long sum = 0;
+        for (; i &gt; 0; i -= i &amp; -i) sum += tree[i];
+        return sum;
+    }
+    long long queryRange(int l, int r) { return query(r) - query(l - 1); }
+};</code></pre>
+                <pre class="code-block" data-lang="py" style="display: none;"><code>class Fenwick:
+    def __init__(self, n):
+        self.n = n
+        self.tree = [0] * (n + 1)
+
+    def add(self, i, delta):
+        while i <= self.n:
+            self.tree[i] += delta
+            i += i & -i
+
+    def query(self, i):
+        s = 0
+        while i > 0:
+            s += self.tree[i]
+            i -= i & -i
+        return s
+
+    def query_range(self, l, r):
+        return self.query(r) - self.query(l - 1)</code></pre>
+              </div>
+
+              <div class="practice-links">
+                <span style="color: var(--text-muted);">Practice:</span>
+                <a href="https://cses.fi/problemset/task/1648" target="_blank" rel="noopener noreferrer">CSES Dynamic Range Sum Queries</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Topic 4: Binary Search on Answer -->
+        <div class="accordion-item">
+          <button class="accordion-btn">Binary Search on Answer</button>
+          <div class="accordion-panel">
+            <div class="accordion-content">
+              <p>When the feasibility of an answer is monotonic, binary search on the range delivers an optimal solution in $O(\log(\text{range}) \cdot T(\text{check}))$.</p>
+
+              <div class="code-container">
+                <div class="code-header">
+                  <div class="code-lang-tabs">
+                    <button class="code-tab-btn active" data-lang="cpp">C++</button>
+                    <button class="code-tab-btn" data-lang="py">Python</button>
+                  </div>
+                  <button class="copy-code-btn">Copy Code</button>
+                </div>
+                <pre class="code-block" data-lang="cpp" style="display: block;"><code>bool check(long long mid, const vector&lt;long long&gt;&amp; a, int k) {
+    // Return true if condition holds
+    return true;
+}
+
+long long binarySearchAnswer(long long low, long long high, const vector&lt;long long&gt;&amp; a, int k) {
+    long long ans = high;
+    while (low &lt;= high) {
+        long long mid = low + (high - low) / 2;
+        if (check(mid, a, k)) {
+            ans = mid;
+            high = mid - 1; // Minimize answer
+        } else {
+            low = mid + 1;
+        }
+    }
+    return ans;
+}</code></pre>
+                <pre class="code-block" data-lang="py" style="display: none;"><code>def check(mid, arr, k):
+    return True
+
+def binary_search_answer(low, high, arr, k):
+    ans = high
+    while low <= high:
+        mid = (low + high) // 2
+        if check(mid, arr, k):
+            ans = mid
+            high = mid - 1
+        else:
+            low = mid + 1
+    return ans</code></pre>
+              </div>
+
+              <div class="practice-links">
+                <span style="color: var(--text-muted);">Practice:</span>
+                <a href="https://cses.fi/problemset/task/1620" target="_blank" rel="noopener noreferrer">CSES Factory Machines</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Topic 5: Number Theory -->
+        <div class="accordion-item">
+          <button class="accordion-btn">Number Theory (Fast Modular Exponentiation)</button>
+          <div class="accordion-panel">
+            <div class="accordion-content">
+              <p>Compute $a^b \pmod m$ in $O(\log b)$ by squaring bases, fundamental to combinatorics and cryptography.</p>
+
+              <div class="code-container">
+                <div class="code-header">
+                  <div class="code-lang-tabs">
+                    <button class="code-tab-btn active" data-lang="cpp">C++</button>
+                    <button class="code-tab-btn" data-lang="py">Python</button>
+                  </div>
+                  <button class="copy-code-btn">Copy Code</button>
+                </div>
+                <pre class="code-block" data-lang="cpp" style="display: block;"><code>long long fastPow(long long a, long long b, long long mod = 1e9 + 7) {
+    long long res = 1;
+    a %= mod;
+    while (b &gt; 0) {
+        if (b &amp; 1) res = (res * a) % mod;
+        a = (a * a) % mod;
+        b &gt;&gt;= 1;
+    }
+    return res;
+}</code></pre>
+                <pre class="code-block" data-lang="py" style="display: none;"><code>def fast_pow(a, b, mod=10**9 + 7):
+    return pow(a, b, mod)</code></pre>
+              </div>
+
+              <div class="practice-links">
+                <span style="color: var(--text-muted);">Practice:</span>
+                <a href="https://cses.fi/problemset/task/1095" target="_blank" rel="noopener noreferrer">CSES Exponentiation</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  
+  <footer>
+    <p>Competitive Programming Hub — built with semantic HTML, CSS &amp; vanilla JS.</p>
+    <p style="color: var(--text-muted); font-size: 0.8rem;">Practice. Compete. Upsolve.</p>
+  </footer>
+
+  <script src="data/algorithms-data.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
