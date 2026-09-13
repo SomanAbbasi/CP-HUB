@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leaderboard | Competitive Programming Hub</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  
+  <header>
+    <nav class="navbar" aria-label="Main navigation">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">&lt;/&gt;</span>
+        <span>CP Hub</span>
+      </a>
+
+      <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="algorithms.html">Algorithms</a></li>
+        <li><a href="leaderboard.html" class="active">Leaderboard</a></li>
+        <li><a href="join.html">Join Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  
+  <main>
+    
+    <section class="page-intro">
+      <h1>Multi-Platform <span class="accent">Leaderboard</span></h1>
+      <p class="lead">
+        Unified rankings and live progress tracking across <strong>Codeforces</strong>, <strong>LeetCode</strong>, and <strong>AtCoder</strong>.
+      </p>
+    </section>
+
+    
+    <section class="inspector-card" aria-label="Multi-Platform Profile Lookup">
+      <div style="margin-bottom: 1rem;">
+        <h3>Cross-Platform <span class="accent">Profile &amp; Progress Lookup</span></h3>
+        <p style="color: var(--text-muted); font-size: 0.88rem; margin-top: 0.2rem;">
+          Select a platform and enter any handle to inspect live ratings, solve counts, and add to the club standings.
+        </p>
+      </div>
+
+      <form id="inspector-form" class="inspector-form">
+        <div style="min-width: 150px;">
+          <select id="inspector-platform-select">
+            <option value="Codeforces">Codeforces</option>
+            <option value="LeetCode">LeetCode</option>
+            <option value="AtCoder">AtCoder</option>
+          </select>
+        </div>
+
+        <div class="inspector-input-wrapper">
+          <input type="text" id="cf-handle-input" placeholder="Enter handle (e.g. tourist, neal_wu, chokudai)..." autocomplete="off">
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-sm" id="inspect-btn">
+          Fetch Profile
+        </button>
+      </form>
+
+      <div class="quick-chips">
+        <span>Quick Test:</span>
+        <button type="button" class="chip-btn" data-platform="Codeforces" data-handle="tourist">CF: tourist</button>
+        <button type="button" class="chip-btn" data-platform="Codeforces" data-handle="Errichto">CF: Errichto</button>
+        <button type="button" class="chip-btn" data-platform="LeetCode" data-handle="neal_wu">LC: neal_wu</button>
+        <button type="button" class="chip-btn" data-platform="LeetCode" data-handle="lee215">LC: lee215</button>
+        <button type="button" class="chip-btn" data-platform="AtCoder" data-handle="chokudai">AtCoder: chokudai</button>
+      </div>
+
+      <!-- Result Container dynamically populated by JavaScript -->
+      <div id="inspector-result" class="profile-result-container" style="display: none; margin-top: 1.2rem; padding-top: 1.2rem; border-top: 1px solid var(--border);"></div>
+    </section>
+
+    
+    <section aria-label="Leaderboard standings">
+      <!-- Search & Platform Filter Pills -->
+      <div class="table-controls">
+        <div class="search-wrapper">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="search-input" class="search-input" placeholder="Filter by handle, name, or platform...">
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+          <button class="filter-btn active" data-platform-filter="ALL">All Platforms</button>
+          <button class="filter-btn" data-platform-filter="Codeforces">Codeforces</button>
+          <button class="filter-btn" data-platform-filter="LeetCode">LeetCode</button>
+          <button class="filter-btn" data-platform-filter="AtCoder">AtCoder</button>
+          <button id="clear-custom-btn" class="btn btn-secondary btn-sm" style="font-size: 0.8rem; padding: 0.35rem 0.75rem;" title="Remove locally registered or inspected members">🧹 Clear Added Members</button>
+        </div>
+      </div>
+
+      <div class="table-wrapper">
+        <table id="leaderboard-table">
+          <thead>
+            <tr>
+              <th scope="col" style="width: 50px;">#</th>
+              <th scope="col">Competitor</th>
+              <th scope="col">Platform</th>
+              <th scope="col" data-sort="handle">Handle</th>
+              <th scope="col" data-sort="solved">Solved</th>
+              <th scope="col" data-sort="rating">Rating</th>
+              <th scope="col">Tier</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboard-tbody">
+            <!-- Row 1: Gennady Korotkevich (Codeforces) -->
+            <tr data-rating="3301" data-solved="2450" data-handle="tourist" data-platform="Codeforces">
+              <td class="num rank-badge-num rank-1">1</td>
+              <td>
+                <div class="user-cell">
+                  <img src="https://userpic.codeforces.org/422/avatar/2b5dbe87f0d859a2.jpg" alt="tourist" class="user-avatar-sm" onerror="this.src='https://ui-avatars.com/api/?name=tourist&background=f1f5f9&color=d97706'">
+                  <div class="user-meta">
+                    <span class="name">Gennady Korotkevich</span>
+                    <span class="org">ITMO University</span>
+                  </div>
+                </div>
+              </td>
+              <td><span class="platform-badge badge-codeforces">Codeforces</span></td>
+              <td><a href="https://codeforces.com/profile/tourist" target="_blank" rel="noopener noreferrer"><code>tourist</code></a></td>
+              <td class="num">2,450</td>
+              <td class="num rating-cell cf-legendary">3301</td>
+              <td><span class="rank rank-grandmaster">LGM</span></td>
+            </tr>
+
+            <!-- Row 2: Benjamin Qi (Codeforces) -->
+            <tr data-rating="3650" data-solved="1890" data-handle="Benq" data-platform="Codeforces">
+              <td class="num rank-badge-num rank-2">2</td>
+              <td>
+                <div class="user-cell">
+                  <img src="https://userpic.codeforces.org/312472/avatar/5716ac69aea8159a.jpg" alt="Benq" class="user-avatar-sm" onerror="this.src='https://ui-avatars.com/api/?name=Benq&background=f1f5f9&color=d97706'">
+                  <div class="user-meta">
+                    <span class="name">Benjamin Qi</span>
+                    <span class="org">MIT</span>
+                  </div>
+                </div>
+              </td>
+              <td><span class="platform-badge badge-codeforces">Codeforces</span></td>
+              <td><a href="https://codeforces.com/profile/Benq" target="_blank" rel="noopener noreferrer"><code>Benq</code></a></td>
+              <td class="num">1,890</td>
+              <td class="num rating-cell cf-legendary">3650</td>
+              <td><span class="rank rank-grandmaster">LGM</span></td>
+            </tr>
+
+            <!-- Row 3: Neal Wu (LeetCode / Codeforces) -->
+            <tr data-rating="3240" data-solved="2100" data-handle="neal_wu" data-platform="LeetCode">
+              <td class="num rank-badge-num rank-3">3</td>
+              <td>
+                <div class="user-cell">
+                  <img src="https://ui-avatars.com/api/?name=Neal+Wu&background=fef3c7&color=b45309" alt="Neal Wu" class="user-avatar-sm" onerror="this.src='https://ui-avatars.com/api/?name=neal&background=f1f5f9&color=d97706'">
+                  <div class="user-meta">
+                    <span class="name">Neal Wu</span>
+                    <span class="org">Top LeetCoder</span>
+                  </div>
+                </div>
+              </td>
+              <td><span class="platform-badge badge-leetcode">LeetCode</span></td>
+              <td><a href="https://leetcode.com/neal_wu/" target="_blank" rel="noopener noreferrer"><code>neal_wu</code></a></td>
+              <td class="num">2,100</td>
+              <td class="num rating-cell cf-legendary">3240</td>
+              <td><span class="rank rank-master">Guardian</span></td>
+            </tr>
+
+            <!-- Row 4: Kenkoooo / chokudai (AtCoder) -->
+            <tr data-rating="2850" data-solved="1650" data-handle="chokudai" data-platform="AtCoder">
+              <td class="num">4</td>
+              <td>
+                <div class="user-cell">
+                  <img src="https://ui-avatars.com/api/?name=chokudai&background=f5f3ff&color=7c3aed" alt="chokudai" class="user-avatar-sm">
+                  <div class="user-meta">
+                    <span class="name">Naohiro Takahashi</span>
+                    <span class="org">AtCoder CEO</span>
+                  </div>
+                </div>
+              </td>
+              <td><span class="platform-badge badge-atcoder">AtCoder</span></td>
+              <td><a href="https://atcoder.jp/users/chokudai" target="_blank" rel="noopener noreferrer"><code>chokudai</code></a></td>
+              <td class="num">1,650</td>
+              <td class="num rating-cell cf-grandmaster">2850</td>
+              <td><span class="rank rank-grandmaster">Red</span></td>
+            </tr>
+
+            <!-- Row 5: Kamil Debowski (Codeforces) -->
+            <tr data-rating="2648" data-solved="1420" data-handle="Errichto" data-platform="Codeforces">
+              <td class="num">5</td>
+              <td>
+                <div class="user-cell">
+                  <img src="https://userpic.codeforces.org/106000/avatar/dba6716a0c4479c7.jpg" alt="Errichto" class="user-avatar-sm" onerror="this.src='https://ui-avatars.com/api/?name=Errichto&background=f1f5f9&color=d97706'">
+                  <div class="user-meta">
+                    <span class="name">Kamil Debowski</span>
+                    <span class="org">Huawei</span>
+                  </div>
+                </div>
+              </td>
+              <td><span class="platform-badge badge-codeforces">Codeforces</span></td>
+              <td><a href="https://codeforces.com/profile/Errichto" target="_blank" rel="noopener noreferrer"><code>Errichto</code></a></td>
+              <td class="num">1,420</td>
+              <td class="num rating-cell cf-grandmaster">2648</td>
+              <td><span class="rank rank-grandmaster">IGM</span></td>
+            </tr>
+
+            <!-- Row 6: Lee215 (LeetCode Legend) -->
+            <tr data-rating="2520" data-solved="1850" data-handle="lee215" data-platform="LeetCode">
+              <td class="num">6</td>
+              <td>
+                <div class="user-cell">
+                  <img src="https://ui-avatars.com/api/?name=Lee+215&background=fef3c7&color=b45309" alt="lee215" class="user-avatar-sm">
+                  <div class="user-meta">
+                    <span class="name">Lee 215</span>
+                    <span class="org">LeetCode Top Contributor</span>
+                  </div>
+                </div>
+              </td>
+              <td><span class="platform-badge badge-leetcode">LeetCode</span></td>
+              <td><a href="https://leetcode.com/lee215/" target="_blank" rel="noopener noreferrer"><code>lee215</code></a></td>
+              <td class="num">1,850</td>
+              <td class="num rating-cell cf-master">2520</td>
+              <td><span class="rank rank-master">Guardian</span></td>
+            </tr>
+
+            <!-- Row 7: Andrew He (Codeforces) -->
+            <tr data-rating="2979" data-solved="2150" data-handle="ecnerwala" data-platform="Codeforces">
+              <td class="num">7</td>
+              <td>
+                <div class="user-cell">
+                  <img src="https://ui-avatars.com/api/?name=Andrew+He&background=f1f5f9&color=2563eb" alt="Andrew He" class="user-avatar-sm" onerror="this.src='https://ui-avatars.com/api/?name=ecnerwala&background=f1f5f9&color=d97706'">
+                  <div class="user-meta">
+                    <span class="name">Andrew He</span>
+                    <span class="org">MIT</span>
+                  </div>
+                </div>
+              </td>
+              <td><span class="platform-badge badge-codeforces">Codeforces</span></td>
+              <td><a href="https://codeforces.com/profile/ecnerwala" target="_blank" rel="noopener noreferrer"><code>ecnerwala</code></a></td>
+              <td class="num">2,150</td>
+              <td class="num rating-cell cf-grandmaster">2979</td>
+              <td><span class="rank rank-grandmaster">IGM</span></td>
+            </tr>
+
+            <!-- Row 8: Petr Mitrichev (Codeforces) -->
+            <tr data-rating="2827" data-solved="1980" data-handle="Petr" data-platform="Codeforces">
+              <td class="num">8</td>
+              <td>
+                <div class="user-cell">
+                  <img src="https://userpic.codeforces.org/664/avatar/a113c1791cdcd2e1.jpg" alt="Petr Mitrichev" class="user-avatar-sm" onerror="this.src='https://ui-avatars.com/api/?name=Petr&background=f1f5f9&color=d97706'">
+                  <div class="user-meta">
+                    <span class="name">Petr Mitrichev</span>
+                    <span class="org">Google</span>
+                  </div>
+                </div>
+              </td>
+              <td><span class="platform-badge badge-codeforces">Codeforces</span></td>
+              <td><a href="https://codeforces.com/profile/Petr" target="_blank" rel="noopener noreferrer"><code>Petr</code></a></td>
+              <td class="num">1,980</td>
+              <td class="num rating-cell cf-grandmaster">2827</td>
+              <td><span class="rank rank-grandmaster">IGM</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p style="color: var(--text-muted); margin-top: 1rem; font-size: 0.85rem;">
+        ⚡ <strong>Multi-Platform Standings:</strong> Combines ratings and problem solve counts across Codeforces, LeetCode, and AtCoder with live public API synchronization.
+      </p>
+    </section>
+
+  </main>
+
+  
+  <footer>
+    <p>Competitive Programming Hub — built with semantic HTML, CSS &amp; vanilla JS.</p>
+    <p style="color: var(--text-muted); font-size: 0.8rem;">Practice. Compete. Upsolve.</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
